@@ -9,18 +9,20 @@ export default function Prayer() {
       const res = await fetch(
         "https://www.londonprayertimes.com/api/times/?format=json&key=d3eb65ee-0d7f-45de-bd2f-ad89f68a7b4f"
       );
-      const json = res.json();
+      const json = await res.json();
       setPrayer(json);
+      console.log(json);
     };
     getData();
   }, []);
 
   return (
     <Box sx={{ p: 1, m: 1 }}>
-      <Card sx={{ maxWidth: 350, maxHeight: 500 }}>
-        <Typography>{prayer.city}</Typography>
-        <Typography>{}</Typography>
-      </Card>
+      {prayer ? (
+        <Card sx={{ maxWidth: 350, maxHeight: 500 }}>
+          <Typography>{prayer.city}</Typography>
+        </Card>
+      ) : null}
     </Box>
   );
 }

@@ -7,6 +7,7 @@ export default function Middle() {
   return (
     <Box>
       <Quote />
+      <Prayer />
     </Box>
   );
 }
