@@ -29,7 +29,7 @@ export default function Header() {
             component="div"
             textAlign="center"
           >
-            Mariam's Batcave
+            Mariam's Batcavee
           </Typography>
         </Toolbar>
       </AppBar>

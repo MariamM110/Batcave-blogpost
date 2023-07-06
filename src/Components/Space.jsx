@@ -18,7 +18,7 @@ export default function Space() {
   useEffect(() => {
     const getSpace = async () => {
       const res = await fetch(
-        "https://api.nasa.gov/planetary/apod?api_key=YzWTUVantwswHZwYXw9QWRwhVqOtbhOKaa7l2nUt"
+        `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_SPACE_API_KEY}`
       );
       const json = await res.json();
       setSpace(json);

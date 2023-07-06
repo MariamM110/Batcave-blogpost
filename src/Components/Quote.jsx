@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useMemo } from "react";
 import {
   Box,
   Card,
@@ -14,19 +14,25 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 export default function Quote() {
   const [riddle, setRiddle] = useState(undefined);
 
-  useEffect(() => {
-    const getData = async () => {
-      const res = await fetch("https://api.api-ninjas.com/v1/riddles", {
-        method: "GET",
-        headers: { "X-Api-Key": "9njvqjedpzr25Y5yvx9Tpw==jVGCGSRIR9lPpOlv" },
-        contentType: "application/json",
-      });
-      const json = await res.json();
-      setRiddle(json[0]);
-      console.log(json[0]);
-    };
-    getData();
+  const getMemoisedData = useMemo(async () => {
+    const res = await fetch("https://api.api-ninjas.com/v1/riddles", {
+      method: "GET",
+      headers: { "X-Api-Key": process.env.REACT_APP_QUOTES_API_KEY },
+      contentType: "application/json",
+    });
+    const json = await res.json();
+    setRiddle(json[0]);
+    console.log(json[0]);
+    return json;
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const riddleData = await getMemoisedData;
+      console.log("Riddle:", riddleData);
+    }
+    fetchData();
+  }, [getMemoisedData]);
 
   return (
     <Box sx={{ p: 1, m: 1 }}>
